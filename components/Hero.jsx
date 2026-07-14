@@ -203,7 +203,7 @@ export default function Hero() {
           </button>
           <a
             className="contact"
-            href="mailto:chahalpranav2312@gmail.com"
+            href="mailto:pranav@physcri.pt"
             onPointerDown={stopEvt}
           >
             contact
