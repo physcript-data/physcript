@@ -1,0 +1,18 @@
+# Dependencies
+/node_modules
+
+# Next.js output
+/.next
+/out
+
+# Vercel local state
+/.vercel
+
+# Environment files
+.env*
+!.env.example
+
+# Local logs and OS files
+*.log
+.DS_Store
+
