@@ -1,0 +1,1577 @@
+/* ============================================================
+   TOUCHSTONE — sheet 01
+   A living instrument schematic. Warm paper, graphite routes,
+   copper only where force is measured.
+   ============================================================ */
+
+.ts {
+  --copper: #a8623c;
+  --copper-soft: #e6d3c6;
+  --patina: #3f6f6a;
+  --oxide: #9a4436;
+  --sheet: #f6f4ee;
+
+  position: relative;
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+/* the custom ring replaces the system pointer everywhere on this sheet */
+.ts,
+.ts * {
+  cursor: none !important;
+}
+
+.ts.coarse,
+.ts.coarse * {
+  cursor: auto !important;
+}
+
+/* engraved instrument paper */
+.ts::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: linear-gradient(
+      to right,
+      rgba(30, 29, 27, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(30, 29, 27, 0.035) 1px, transparent 1px);
+  background-size: 88px 88px;
+  mask-image: radial-gradient(ellipse at 50% 30%, #000 20%, transparent 78%);
+  -webkit-mask-image: radial-gradient(
+    ellipse at 50% 30%,
+    #000 20%,
+    transparent 78%
+  );
+}
+
+.ts::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    rgba(0, 0, 0, 0) 52%,
+    rgba(30, 29, 27, 0.055) 100%
+  );
+}
+
+.ts > * {
+  position: relative;
+  z-index: 2;
+}
+
+.ts-wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ---------- sheet header ---------- */
+
+.ts-bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 40px;
+  background: rgba(241, 239, 233, 0.86);
+  backdrop-filter: saturate(120%) blur(9px);
+  -webkit-backdrop-filter: saturate(120%) blur(9px);
+  border-bottom: 1px solid var(--hairline);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+.ts-bar a {
+  color: var(--faded);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+
+.ts-bar a:hover {
+  color: var(--ink);
+}
+
+.ts-bar .ts-bar-mark {
+  display: flex;
+  gap: 0.08em;
+  color: var(--ink);
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+.ts-bar .ts-brk {
+  color: var(--faded);
+}
+
+.ts-bar-mid {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--faded);
+}
+
+.ts-bar-mid b {
+  color: var(--ink);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+}
+
+.ts-bar-right {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+
+/* ---------- shared typography ---------- */
+
+.ts-eyebrow {
+  font-size: 9.5px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--faded);
+}
+
+.ts-h2 {
+  font-family: var(--font-serif), serif;
+  font-weight: 400;
+  font-size: clamp(30px, 4.4vw, 52px);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  margin: 14px 0 0;
+}
+
+.ts-lede {
+  font-family: var(--font-serif), serif;
+  font-style: italic;
+  font-size: clamp(18px, 2.1vw, 24px);
+  line-height: 1.42;
+  color: var(--ink);
+  max-width: 30em;
+  margin-top: 18px;
+}
+
+.ts-body {
+  font-size: 13px;
+  line-height: 1.75;
+  color: #4a4842;
+  max-width: 40em;
+  letter-spacing: 0.005em;
+}
+
+.ts-body + .ts-body {
+  margin-top: 14px;
+}
+
+.ts-body b,
+.ts-lede b {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.ts-hair {
+  height: 1px;
+  background: var(--hairline);
+  border: 0;
+  margin: 0;
+}
+
+.ts-sec {
+  padding: 108px 0;
+}
+
+.ts-sec-head {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.ts-sec-num {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--faded);
+  padding-top: 10px;
+  border-top: 1px solid var(--ink);
+}
+
+/* ---------- masthead ---------- */
+
+.ts-mast {
+  padding: 76px 0 64px;
+}
+
+.ts-mast-title {
+  font-family: var(--font-serif), serif;
+  font-size: clamp(66px, 13vw, 168px);
+  line-height: 0.86;
+  letter-spacing: -0.035em;
+  margin: 22px 0 0;
+}
+
+.ts-mast-sub {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+  margin-top: 26px;
+  padding-top: 16px;
+  border-top: 1px solid var(--hairline);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--faded);
+}
+
+.ts-mast-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  margin-top: 52px;
+  align-items: end;
+}
+
+.ts-spec {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--ink);
+}
+
+.ts-spec div {
+  padding: 16px 18px 18px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.ts-spec div:nth-child(odd) {
+  border-right: 1px solid var(--hairline);
+  padding-right: 18px;
+}
+
+.ts-spec div:nth-child(even) {
+  padding-left: 18px;
+}
+
+.ts-spec dt {
+  font-size: 11.5px;
+  color: var(--faded);
+}
+
+.ts-spec dd {
+  font-size: 12.5px;
+  line-height: 1.55;
+  margin-top: 7px;
+  color: var(--ink);
+}
+
+/* ---------- blind spot: two identical frames ---------- */
+
+.ts-frames {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 44px;
+}
+
+.ts-frame {
+  border: 1px solid var(--hairline);
+  background: var(--sheet);
+  padding: 18px 18px 14px;
+}
+
+.ts-frame-cap {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  color: var(--faded);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.ts-frame svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ts-frame-verdict {
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 1px solid var(--hairline);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.ts-frame-verdict b {
+  font-variant-numeric: tabular-nums slashed-zero;
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--copper);
+  letter-spacing: 0;
+}
+
+.ts-frames-foot {
+  margin-top: 22px;
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: var(--faded);
+  text-align: center;
+}
+
+/* ---------- the map ---------- */
+
+.ts-map-shell {
+  margin-top: 46px;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--hairline);
+  padding: 8px 0 22px;
+}
+
+.ts-map-meta {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 2px 4px;
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--faded);
+}
+
+.ts-map-wide {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ts-map-tall {
+  display: none;
+}
+
+/* schematic primitives */
+.ts-route {
+  fill: none;
+  stroke: var(--hairline);
+  stroke-width: 1;
+  stroke-dasharray: var(--len);
+  stroke-dashoffset: var(--len);
+  transition: stroke 0.4s, opacity 0.4s;
+}
+
+.ts-map.is-live .ts-route {
+  animation: ts-draw 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes ts-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.ts-route.is-lit {
+  stroke: var(--ink);
+}
+
+.ts-map.is-focus .ts-route:not(.is-lit) {
+  opacity: 0.35;
+}
+
+.ts-node circle,
+.ts-node rect {
+  transition: fill 0.35s, stroke 0.35s;
+}
+
+.ts-node-ring {
+  fill: var(--sheet);
+  stroke: var(--hairline);
+  stroke-width: 1;
+}
+
+.ts-node-core {
+  fill: var(--ink);
+}
+
+.ts-node.is-on .ts-node-ring {
+  stroke: var(--ink);
+}
+
+.ts-map.is-focus .ts-node:not(.is-on) {
+  opacity: 0.42;
+}
+
+.ts-node {
+  cursor: pointer;
+  transition: opacity 0.35s;
+}
+
+.ts-map text {
+  font-family: var(--font-mono), monospace;
+}
+
+.ts-t-idx {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  fill: var(--faded);
+}
+
+.ts-t-name {
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  fill: var(--ink);
+}
+
+.ts-t-sub {
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  fill: var(--faded);
+}
+
+.ts-t-stream {
+  font-size: 8.5px;
+  letter-spacing: 0.13em;
+  fill: var(--faded);
+  text-transform: uppercase;
+}
+
+.ts-t-unit {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  fill: var(--copper);
+}
+
+.ts-cert-ring {
+  fill: none;
+  stroke: var(--patina);
+  stroke-width: 1;
+  stroke-dasharray: 264;
+  stroke-dashoffset: 264;
+  transform-origin: center;
+}
+
+.ts-map.is-live .ts-cert-ring {
+  animation: ts-seal 1.2s cubic-bezier(0.4, 0, 0.2, 1) 2.5s forwards;
+}
+
+@keyframes ts-seal {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* force packets — the box must be the packet itself, not the whole viewBox */
+.ts-pkt {
+  fill: var(--copper);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  offset-anchor: center;
+}
+
+@supports (offset-path: path("M0 0 L1 1")) {
+  .ts-map.is-live .ts-pkt {
+    offset-rotate: auto;
+    offset-distance: 0%;
+    animation: ts-flow var(--dur, 4s) linear var(--pd, 0s) infinite;
+  }
+}
+
+@keyframes ts-flow {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+/* tall (mobile) map */
+.ts-tall-rail {
+  position: relative;
+  margin-top: 30px;
+}
+
+.ts-tall-rail::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 10px;
+  bottom: 24px;
+  width: 1px;
+  background: var(--hairline);
+}
+
+.ts-tall-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 34px;
+}
+
+.ts-tall-spark {
+  position: absolute;
+  left: 5px;
+  width: 7px;
+  height: 7px;
+  background: var(--copper);
+  top: 0;
+  animation: ts-fall 5.5s linear infinite;
+}
+
+@keyframes ts-fall {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.ts-tall-list li {
+  position: relative;
+  padding: 0 0 30px;
+}
+
+.ts-tall-list li::before {
+  content: "";
+  position: absolute;
+  left: -30px;
+  top: 5px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--sheet);
+  border: 1px solid var(--ink);
+}
+
+.ts-tall-idx {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--faded);
+}
+
+.ts-tall-name {
+  font-size: 12px;
+  letter-spacing: 0.13em;
+  margin-top: 5px;
+}
+
+.ts-tall-sub {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--faded);
+  margin-top: 6px;
+  letter-spacing: 0.02em;
+}
+
+.ts-tall-out {
+  margin-top: 8px;
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--copper);
+}
+
+/* ---------- drawn figure ---------- */
+
+.ts-fig-shell {
+  margin-top: 46px;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--hairline);
+  padding: 8px 0 14px;
+}
+
+.ts-fig {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ts-fig text {
+  font-family: var(--font-mono), monospace;
+}
+
+.ts-fig-line {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.1;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.ts-fig-thin {
+  fill: none;
+  stroke: var(--hairline);
+  stroke-width: 1;
+}
+
+.ts-fig-fill {
+  fill: var(--sheet);
+  stroke: var(--ink);
+  stroke-width: 1.1;
+  stroke-linejoin: round;
+}
+
+.ts-fig-face {
+  fill: rgba(30, 29, 27, 0.05);
+  stroke: var(--ink);
+  stroke-width: 1.1;
+  stroke-linejoin: round;
+}
+
+.ts-fig-dark {
+  fill: rgba(30, 29, 27, 0.74);
+  stroke: none;
+}
+
+.ts-fig-lead {
+  fill: none;
+  stroke: var(--faded);
+  stroke-width: 1;
+}
+
+.ts-mk-dot {
+  fill: var(--sheet);
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+.ts-mk-num {
+  font-size: 9.5px;
+  fill: var(--ink);
+}
+
+/* ---------- plates ---------- */
+
+.ts-plate {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 54px;
+  align-items: center;
+}
+
+.ts-plate.rev {
+  grid-template-columns: 0.95fr 1.05fr;
+}
+
+.ts-plate.rev .ts-plate-img {
+  order: 2;
+}
+
+.ts-plate-img {
+  border: 1px solid var(--hairline);
+  padding: 10px;
+  background: var(--sheet);
+}
+
+.ts-plate-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ts-plate-cap {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 10px;
+  padding-top: 9px;
+  border-top: 1px solid var(--hairline);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--faded);
+}
+
+/* plates tipped in as a pair, the way figures sit in a monograph */
+.ts-plate-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+  border-top: 1px solid var(--ink);
+  padding-top: 22px;
+}
+
+.ts-plate-pair figure {
+  margin: 0;
+}
+
+.ts-plate-pair img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--hairline);
+}
+
+.ts-plate-pair figcaption {
+  display: flex;
+  gap: 14px;
+  margin-top: 10px;
+  font-size: 10px;
+  color: var(--faded);
+}
+
+.ts-plate-pair figcaption span:first-child {
+  flex: none;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.ts-list {
+  list-style: none;
+  padding: 0;
+  margin: 26px 0 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.ts-list li {
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  gap: 18px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 12px;
+  line-height: 1.6;
+  color: #4a4842;
+}
+
+.ts-list li span:first-child {
+  font-size: 12px;
+  color: var(--ink);
+  padding-top: 1px;
+}
+
+.ts-pull {
+  border-left: 1px solid var(--ink);
+  padding: 4px 0 4px 22px;
+  margin: 30px 0 0;
+  font-family: var(--font-serif), serif;
+  font-style: italic;
+  font-size: clamp(19px, 2.2vw, 26px);
+  line-height: 1.4;
+}
+
+/* ---------- contact atlas ---------- */
+
+.ts-atlas {
+  display: grid;
+  grid-template-columns: 1fr 330px;
+  gap: 48px;
+  margin-top: 46px;
+  align-items: start;
+}
+
+.ts-atlas-stage {
+  border: 1px solid var(--hairline);
+  background: var(--sheet);
+  padding: 8px;
+}
+
+.ts-atlas-stage svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ts-atlas text {
+  font-family: var(--font-mono), monospace;
+}
+
+.ts-obj {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.1;
+  stroke-linejoin: round;
+}
+
+.ts-obj-hidden {
+  fill: none;
+  stroke: var(--hairline);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+
+.ts-ghost {
+  fill: none;
+  stroke: var(--hairline);
+  stroke-width: 1;
+}
+
+/* transforms are set as SVG attributes; CSS only interpolates between them */
+.ts-atlas-stage .ts-vec,
+.ts-atlas-stage .ts-vec-head,
+.ts-atlas-stage .ts-cpt-dot,
+.ts-atlas-stage .ts-cpt-rest,
+.ts-atlas-stage .ts-cpt-lbl,
+.ts-atlas-stage .ts-cpt-lbl-rest {
+  transform-box: view-box;
+  transform-origin: 0 0;
+  transition: transform 0.62s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ts-cpt-dot,
+.ts-cpt-rest {
+  transition: transform 0.62s cubic-bezier(0.4, 0, 0.2, 1), r 0.4s;
+}
+
+.ts-ghost,
+.ts-cpt {
+  transition: opacity 0.5s;
+}
+
+.ts-cpt-dot {
+  fill: var(--copper);
+}
+
+.ts-cpt-rest {
+  fill: var(--paper);
+  stroke: var(--faded);
+  stroke-width: 1;
+}
+
+.ts-vec {
+  stroke: var(--copper);
+  stroke-width: 1.4;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ts-vec-head {
+  fill: var(--copper);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ts-cpt-lbl,
+.ts-cpt-lbl-rest {
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  fill: var(--copper);
+}
+
+.ts-cpt-lbl-rest {
+  fill: var(--faded);
+}
+
+.ts-atlas-key {
+  font-size: 8.5px;
+  letter-spacing: 0.16em;
+  fill: var(--faded);
+  text-transform: uppercase;
+}
+
+/* segmented control — Carbon content switcher / Primer segmented control:
+   joined segments, hairline dividers, the active one marked by a rule, not a fill */
+.ts-seg-wrap {
+  grid-column: 1 / -1;
+  margin-bottom: 26px;
+}
+
+.ts-seg {
+  display: flex;
+  border: 1px solid var(--hairline);
+  background: var(--sheet);
+}
+
+.ts-seg button {
+  flex: 1 1 0;
+  position: relative;
+  appearance: none;
+  border: 0;
+  border-right: 1px solid var(--hairline);
+  background: transparent;
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--faded);
+  padding: 14px 12px 13px;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+}
+
+.ts-seg button:last-child {
+  border-right: 0;
+}
+
+.ts-seg button::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  height: 2px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ts-seg button:hover {
+  color: var(--ink);
+}
+
+.ts-seg button[aria-pressed="true"] {
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.ts-seg button[aria-pressed="true"]::after {
+  transform: none;
+}
+
+.ts-seg-cap {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 11px 1px 0;
+  font-size: 11.5px;
+  color: #56534c;
+}
+
+.ts-seg-cap span {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--faded);
+  padding-top: 2px;
+}
+
+/* readout */
+.ts-readout {
+  padding-top: 2px;
+}
+
+.ts-verdict-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--ink);
+}
+
+.ts-verdict-lbl {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--faded);
+}
+
+.ts-verdict-word {
+  font-family: var(--font-serif), serif;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-align: right;
+}
+
+.ts-verdict-word.pass {
+  color: var(--patina);
+}
+
+.ts-verdict-word.fail {
+  color: var(--oxide);
+}
+
+/* structured rows with typographic dot leaders */
+.ts-rows {
+  margin: 0;
+  font-size: 12px;
+}
+
+.ts-rows > div,
+.ts-doc-rows > div {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(207, 204, 195, 0.62);
+}
+
+.ts-rows dt,
+.ts-doc-rows dt {
+  flex: none;
+  color: var(--faded);
+  letter-spacing: 0.01em;
+}
+
+.ts-lead {
+  flex: 1 1 auto;
+  min-width: 16px;
+  align-self: baseline;
+  height: 0;
+  border-bottom: 1px dotted var(--hairline);
+}
+
+.ts-rows dd,
+.ts-doc-rows dd {
+  flex: none;
+  margin: 0;
+  color: var(--ink);
+  text-align: right;
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+/* hanging-indent note, the way a footnote sits under a table */
+.ts-hang {
+  margin: 20px 0 0;
+  padding-left: 86px;
+  text-indent: -86px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #4a4842;
+}
+
+.ts-hang span {
+  display: inline-block;
+  width: 86px;
+  text-indent: 0;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--faded);
+  vertical-align: baseline;
+}
+
+/* ---------- certificate ---------- */
+
+.ts-cert {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 54px;
+  margin-top: 44px;
+  align-items: start;
+}
+
+.ts-doc {
+  border: 1px solid var(--ink);
+  background: var(--sheet);
+  padding: 22px 22px 18px;
+  box-shadow: 5px 5px 0 rgba(30, 29, 27, 0.045);
+}
+
+.ts-doc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--ink);
+}
+
+.ts-doc-head h3 {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.ts-doc-head p {
+  font-size: 11px;
+  color: var(--faded);
+  margin: 7px 0 0;
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+.ts-seal {
+  flex: 0 0 auto;
+}
+
+.ts-seal circle {
+  fill: none;
+  stroke: var(--patina);
+  stroke-width: 1;
+}
+
+.ts-seal text {
+  font-family: var(--font-mono), monospace;
+  font-size: 7px;
+  letter-spacing: 0.16em;
+  fill: var(--patina);
+}
+
+.ts-doc-rows {
+  margin: 0;
+  font-size: 11.5px;
+}
+
+.ts-doc-rows dt {
+  max-width: 46%;
+}
+
+/* provenance reads as a map legend swatch, not a badge */
+.ts-prov {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: 74px;
+  justify-content: flex-end;
+  font-size: 10px;
+  letter-spacing: 0.01em;
+  color: var(--faded);
+}
+
+.ts-prov i {
+  order: -1;
+  width: 5px;
+  height: 5px;
+  background: currentColor;
+}
+
+.ts-prov.m {
+  color: var(--copper);
+}
+
+.ts-prov.c {
+  color: var(--patina);
+}
+
+.ts-redact {
+  background: var(--ink);
+  color: transparent;
+  user-select: none;
+  letter-spacing: -0.06em;
+}
+
+.ts-doc-foot {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--ink);
+  font-size: 10.5px;
+  color: var(--faded);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* ---------- comparison ---------- */
+
+.ts-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 40px;
+  font-size: 11px;
+}
+
+.ts-table th,
+.ts-table td {
+  border-bottom: 1px solid var(--hairline);
+  padding: 14px 10px;
+  text-align: center;
+}
+
+.ts-table thead th {
+  font-size: 11px;
+  color: var(--faded);
+  font-weight: 400;
+  border-bottom: 1px solid var(--ink);
+  vertical-align: bottom;
+}
+
+.ts-table thead th.us,
+.ts-table td.us {
+  color: var(--ink);
+  background: rgba(168, 98, 60, 0.045);
+}
+
+.ts-table thead th.us {
+  color: var(--copper);
+}
+
+.ts-table tbody th {
+  text-align: left;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  padding-left: 0;
+  font-size: 11.5px;
+}
+
+.ts-mark {
+  font-size: 13px;
+  line-height: 1;
+  color: var(--faded);
+}
+
+.ts-mark.full {
+  color: var(--ink);
+}
+
+.us .ts-mark.full {
+  color: var(--copper);
+}
+
+.ts-anchor {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  margin-top: 40px;
+}
+
+.ts-anchor div {
+  background: var(--sheet);
+  padding: 22px 20px;
+}
+
+.ts-anchor b {
+  font-variant-numeric: tabular-nums slashed-zero;
+  display: block;
+  font-family: var(--font-serif), serif;
+  font-weight: 400;
+  font-size: 34px;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.ts-anchor span {
+  display: block;
+  margin-top: 10px;
+  font-size: 11.5px;
+  color: var(--faded);
+}
+
+.ts-anchor p {
+  margin: 9px 0 0;
+  font-size: 11px;
+  line-height: 1.55;
+  color: #4a4842;
+}
+
+/* ---------- closing ---------- */
+
+.ts-close {
+  border-top: 1px solid var(--ink);
+  padding: 74px 0 0;
+}
+
+.ts-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 30px;
+  padding: 14px 22px;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: background 0.25s, color 0.25s;
+}
+
+.ts-cta:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.ts-next {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 40px;
+  padding: 18px 22px;
+  border: 1px solid var(--hairline);
+  background: var(--sheet);
+  text-decoration: none;
+  transition: border-color 0.25s, background 0.25s;
+}
+
+.ts-next span {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--faded);
+}
+
+.ts-next strong {
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--ink);
+  text-align: right;
+}
+
+.ts-next:hover {
+  border-color: var(--ink);
+  background: var(--paper);
+}
+
+.ts-title-block {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--hairline);
+  margin-top: 44px;
+}
+
+.ts-title-block div {
+  padding: 14px 16px 16px 20px;
+  border-right: 1px solid var(--hairline);
+}
+
+.ts-title-block div:first-child {
+  padding-left: 0;
+}
+
+.ts-title-block div:last-child {
+  border-right: 0;
+}
+
+.ts-title-block dt {
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--faded);
+}
+
+.ts-title-block dd {
+  margin: 7px 0 0;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.ts-end {
+  padding: 26px 0 60px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--faded);
+}
+
+.ts-end a {
+  color: var(--faded);
+  text-decoration: none;
+}
+
+.ts-end a:hover {
+  color: var(--ink);
+}
+
+/* ---------- reveal ---------- */
+
+.ts-rise {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.9s cubic-bezier(0.2, 0, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.ts-rise.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.ts-trace {
+  stroke-dasharray: var(--len);
+  stroke-dashoffset: var(--len);
+}
+
+.is-in .ts-trace {
+  animation: ts-draw 1.9s cubic-bezier(0.5, 0, 0.2, 1) 0.25s forwards;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1024px) {
+  .ts-wrap {
+    padding: 0 28px;
+  }
+  .ts-bar {
+    padding: 13px 28px;
+  }
+  .ts-mast-grid,
+  .ts-plate,
+  .ts-plate.rev,
+  .ts-cert,
+  .ts-atlas {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+  .ts-plate.rev .ts-plate-img {
+    order: 0;
+  }
+  .ts-anchor {
+    grid-template-columns: 1fr;
+  }
+  .ts-title-block {
+    grid-template-columns: 1fr 1fr;
+  }
+  .ts-plate-pair {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 900px) {
+  .ts-map-wide {
+    display: none;
+  }
+  .ts-map-tall {
+    display: block;
+  }
+}
+
+@media (max-width: 720px) {
+  .ts-sec {
+    padding: 74px 0;
+  }
+  .ts-wrap {
+    padding: 0 20px;
+  }
+  .ts-bar {
+    padding: 12px 20px;
+    font-size: 10px;
+  }
+  .ts-bar-mid {
+    display: none;
+  }
+  .ts-sec-head {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .ts-sec-num {
+    display: inline-block;
+    padding-top: 8px;
+  }
+  .ts-frames {
+    grid-template-columns: 1fr;
+  }
+  .ts-spec {
+    grid-template-columns: 1fr;
+  }
+  .ts-spec div:nth-child(odd) {
+    border-right: 0;
+    padding-right: 0;
+  }
+  .ts-spec div:nth-child(even) {
+    padding-left: 0;
+  }
+  .ts-list li {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .ts-table {
+    font-size: 10px;
+  }
+  .ts-table th,
+  .ts-table td {
+    padding: 11px 4px;
+  }
+  .ts-table tbody th {
+    font-size: 10px;
+  }
+  .ts-doc-rows > div {
+    flex-wrap: wrap;
+    row-gap: 3px;
+  }
+  .ts-doc-rows dt {
+    max-width: none;
+  }
+  .ts-doc-rows .ts-prov {
+    width: auto;
+    order: 3;
+    flex-basis: 100%;
+    justify-content: flex-start;
+  }
+  .ts-seg {
+    flex-wrap: wrap;
+  }
+  .ts-seg button {
+    flex: 1 0 50%;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .ts-seg-cap {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .ts-hang {
+    padding-left: 0;
+    text-indent: 0;
+  }
+  .ts-hang span {
+    display: block;
+    width: auto;
+    margin-bottom: 4px;
+  }
+  .ts-title-block {
+    grid-template-columns: 1fr;
+  }
+  .ts-title-block div {
+    border-right: 0;
+    border-bottom: 1px solid var(--hairline);
+    padding-left: 0;
+  }
+  .ts-end {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ts-next {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ts-next strong {
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ts-rise,
+  .ts-rise.is-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .ts-map.is-live .ts-route,
+  .ts-map.is-live .ts-cert-ring,
+  .is-in .ts-trace {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .ts-map.is-live .ts-pkt {
+    animation: none;
+    display: none;
+  }
+  .ts-tall-spark {
+    animation: none;
+  }
+  .ts-cpt,
+  .ts-vec,
+  .ts-vec-head {
+    transition: none;
+  }
+}

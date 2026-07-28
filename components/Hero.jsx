@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import World from "./World";
+import Link from "next/link";
+import dynamic from "next/dynamic";
 import { SoundEngine } from "../lib/sound";
+
+/* the canvas is the only browser-only part; everything else server-renders */
+const HeroCanvas = dynamic(() => import("./HeroCanvas"), { ssr: false });
 
 const SAFE_MIN = 12;
 
@@ -21,9 +24,9 @@ export default function Hero() {
   const stampValRef = useRef(null);
   const cursorRef = useRef(null);
   const [soundOn, setSoundOn] = useState(true);
-  const [coarse, setCoarse] = useState(
-    () => typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches
-  );
+  /* starts false so the server and the first client render agree; the real
+     value is read in the effect below, before anything is painted */
+  const [coarse, setCoarse] = useState(false);
 
   const sound = useMemo(() => new SoundEngine(), []);
   const sim = useMemo(
@@ -166,16 +169,7 @@ export default function Hero() {
 
   return (
     <section ref={heroRef} className={"hero" + (coarse ? " coarse" : "")}>
-      <Canvas
-        dpr={coarse ? 1 : [1, 2]}
-        camera={{ position: [0, 0.6, 4.6], fov: 32, near: 0.1, far: 50 }}
-        gl={{
-          antialias: !coarse,
-          powerPreference: coarse ? "low-power" : "high-performance",
-        }}
-      >
-        <World sim={sim} lowPower={coarse} />
-      </Canvas>
+      <HeroCanvas sim={sim} coarse={coarse} />
 
       <div className="vignette" />
 
@@ -252,12 +246,18 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="mvp-status">
+        <Link
+          className="mvp-status"
+          href="/touchstone"
+          onPointerDown={stopEvt}
+          aria-label="MVP-0 — read the Touchstone sheet"
+        >
           <span className="status-dot" aria-hidden="true" />
-          <span>MVP-0</span>
+          <span className="mvp-key">MVP-0</span>
           <span className="status-divider">·</span>
           <span>IN PROGRESS</span>
-        </div>
+          <span className="mvp-go" aria-hidden="true">→</span>
+        </Link>
 
         <div className="cursor-ring" ref={cursorRef} />
       </div>
