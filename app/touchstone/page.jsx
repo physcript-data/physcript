@@ -1,5 +1,5 @@
-import SystemMap from "../../components/SystemMap";
-import "./system.css";
+import Atlas from "../../components/Atlas";
+import "./atlas.css";
 import {
   SITE,
   KEYWORDS,
@@ -8,14 +8,14 @@ import {
   graph,
 } from "../../lib/seo";
 
-const TITLE = "Touchstone — how robot force data is measured and certified";
+const TITLE = "Touchstone — the whole system on one sheet";
 const DESC =
-  "Touchstone measures contact force at the source and certifies it. Six measurement streams gather on a held object, the measured forces become one record with its own provenance, and that record is recompiled onto any robot hand — with an honest verdict when the grasp cannot be reproduced.";
+  "The Touchstone atlas: two gaps in robot manipulation data that share one answer, the five sensing blocks and the calibration standard that capture it, the Record — five fields including a stated uncertainty on every force — and the five pre-registered experiments that could end each part of it.";
 
 export const metadata = {
   title: TITLE,
   description: DESC,
-  keywords: KEYWORDS.schematic,
+  keywords: KEYWORDS.atlas,
   alternates: { canonical: "/touchstone" },
   openGraph: {
     title: `${TITLE} | Physcript`,
@@ -31,7 +31,7 @@ export const metadata = {
     card: "summary_large_image",
     title: `${TITLE} | Physcript`,
     description:
-      "One sheet: the world measures the object, the record is certified, and the force is recompiled per robot body.",
+      "One sheet: capture, the Record, the compiler, and the five experiments that could kill each part of it.",
   },
 };
 
@@ -46,7 +46,7 @@ export default function TouchstonePage() {
               path: "/touchstone",
               headline: TITLE,
               description: DESC,
-              keywords: KEYWORDS.schematic,
+              keywords: KEYWORDS.atlas,
             }),
             breadcrumb([
               { name: "Physcript", path: "/" },
@@ -55,7 +55,7 @@ export default function TouchstonePage() {
           ]),
         }}
       />
-      <SystemMap />
+      <Atlas />
     </>
   );
 }

@@ -1,5 +1,5 @@
-import Touchstone from "../../../components/Touchstone";
-import "../touchstone.css";
+import LongSheet from "../../../components/LongSheet";
+import "../sheet.css";
 import {
   SITE,
   KEYWORDS,
@@ -9,9 +9,9 @@ import {
 } from "../../../lib/seo";
 
 const TITLE =
-  "Touchstone v0.1 — measuring contact force from human demonstrations";
+  "Touchstone v3 — measuring contact force from human demonstrations";
 const DESC =
-  "The full technical sheet for Touchstone v0.1: why force is invisible in video, how contact force is measured from the world instead of the hand, how a demonstration is certified against a known standard, and how the same recorded job is compiled onto a five-digit hand, a three-finger gripper or a parallel jaw.";
+  "The full technical sheet for Touchstone v3: why force is invisible in video, the five sensing categories and the handheld transfer standard that make it measurable, the Record and its five fields, the seven-layer compiler, the pre-registered validation including the predictions that failed, and the five kill gates that could still end each part of it.";
 
 export const metadata = {
   title: TITLE,
@@ -32,7 +32,7 @@ export const metadata = {
     card: "summary_large_image",
     title: `${TITLE} | Physcript`,
     description:
-      "Force is invisible in video. Touchstone measures it, certifies it, and makes it portable across robot bodies.",
+      "Force is invisible in video. Touchstone measures it, states how far it can be trusted, and makes it portable across robot bodies — including the parts of that claim that have failed so far.",
   },
 };
 
@@ -57,7 +57,7 @@ export default function TouchstoneDetailedPage() {
           ]),
         }}
       />
-      <Touchstone />
+      <LongSheet />
     </>
   );
 }

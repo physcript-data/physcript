@@ -101,8 +101,8 @@ data collection startup` · `force data provider robotics`
 | Route | Primary intent | Title |
 |---|---|---|
 | `/` | Brand + category head terms | Physcript — force data for robot manipulation |
-| `/touchstone` | How it works, cross-embodiment, certification | Touchstone — how robot force data is measured and certified |
-| `/touchstone/detailed` | Deep technical, Tier 3–4 long tail | Touchstone v0.1 — measuring contact force from human demonstrations |
+| `/touchstone` | The atlas: how it works, cross-embodiment, certification, the kill gates | Touchstone — the whole system on one sheet |
+| `/touchstone/detailed` | Deep technical, Tier 3–4 long tail, published validation results | Touchstone v3 — measuring contact force from human demonstrations |
 
 Titles lead with the distinguishing noun rather than the brand, because
 nobody is searching the brand yet. Once brand volume exists, revisit.

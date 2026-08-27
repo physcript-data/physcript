@@ -22,11 +22,7 @@ export default function sitemap() {
       lastModified: modified,
       changeFrequency: "monthly",
       priority: 0.7,
-      images: [
-        `${SITE.url}/touchstone/plate-band.webp`,
-        `${SITE.url}/touchstone/plate-sleeve.webp`,
-        `${SITE.url}/touchstone/plate-force.webp`,
-      ],
+      images: [`${SITE.url}/touchstone/plate-sleeve.webp`],
     },
   ];
 }

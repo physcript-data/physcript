@@ -19,6 +19,33 @@ Production deployments come from the `main` branch of
 
 No environment variables or custom Vercel build settings are required.
 
+## Pages
+
+- `/` — the landing page: a porcelain egg you try to hold. Untouched by the
+  Touchstone rebuild.
+- `/touchstone` — **the atlas**. The whole v3 system as one navigable map:
+  two gaps → the thesis → seven capture elements → four compiler layers →
+  the Record → two consuming layers → deploy, with the five kill gates
+  hanging beneath it, each tethered to exactly what it can kill. Plus the
+  scroll-scrubbed embodiment morph and the Record drawn as an instrument
+  trace.
+- `/touchstone/detailed` — **the long sheet**. Nine movements, seven figures,
+  the full argument including the pre-registered predictions that failed.
+
+Both Touchstone sheets are built from `components/sheet-kit.jsx` (reveal,
+self-measuring paths, scroll scrubbing, counters, sheet furniture). The
+atlas graph lives as pure data in `components/atlas-map.js`; the long
+sheet's drawings live in `components/sheet-figs.jsx`.
+
+### Disclosure
+
+The Touchstone sheets are held to the vault's `07 Pitch/What Not To Reveal`.
+Block categories, the Record schema, the artifact's purpose, all market and
+competitor numbers, the kill-gate philosophy and the validation results
+(including the misses) are published. The L1 fusion loop, the artifact's
+mechanism and range, the sensor zoning and timing scheme, line-item BOM and
+the numeric gate thresholds are not. Keep it that way when editing copy.
+
 ## Stack
 
 - Next.js 14 (app router)
@@ -26,6 +53,9 @@ No environment variables or custom Vercel build settings are required.
 - @react-three/postprocessing (depth of field, film grain, vignette)
 - WebAudio (synthesized strain / crack / thud / certification chime — no audio files)
 - Fonts: Instrument Serif (voice) + JetBrains Mono (instrument labels)
+- No animation library: the Touchstone sheets use stroke-dash draws,
+  `offset-path` packets, IntersectionObserver reveals and a rAF scroll
+  scrubber, all hand-written
 
 ## Interaction spec
 
