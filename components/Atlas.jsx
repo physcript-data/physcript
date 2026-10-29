@@ -908,7 +908,7 @@ function Strip() {
 const STATUS = [
   ["System specification", "complete — 5 blocks, 7 layers, 5 gates, costed", "R", "done"],
   ["Uncertainty validation", "run on public data, externally reviewed, six of our own claims corrected", "R", "done"],
-  ["v0 hardware", "bench prototype under construction · logging, EMG, inertial and force channels read on the bench · not yet calibrated or worn", "—", "part"],
+  ["v0 hardware", "bench prototype under construction · signals read on the bench · not yet worn", "—", "part"],
   ["First worn recording", "next — muscle signals and force together, against the load-cell reference", "—", "open"],
   ["Gate K1", "untouched — no robot, no policy, no task anywhere in the programme yet", "H", "open"],
   ["Gate K3", "untouched — highest risk and, since 2026-08-20, highest value", "H", "open"],
