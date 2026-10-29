@@ -902,6 +902,24 @@ function Strip() {
 }
 
 /* ============================================================
+   plates — pencil studies
+   ============================================================ */
+
+function Plate({ src, alt, n, title, note }) {
+  return (
+    <figure className="at-plate rise">
+      <img src={src} alt={alt} width="1280" height="720" loading="lazy" />
+      <figcaption>
+        <span>
+          <b>plate {n}</b> · {title}
+        </span>
+        <span>{note}</span>
+      </figcaption>
+    </figure>
+  );
+}
+
+/* ============================================================
    V — where this actually stands
    ============================================================ */
 
@@ -1019,6 +1037,16 @@ export default function Atlas() {
         </div>
       </section>
 
+      <div className="at-wrap">
+        <Plate
+          src="/touchstone/study-prototype.webp"
+          alt="Pencil study of the research prototype on a forearm: a band of small printed pods holding gel electrodes, a wire bundle running to a microcontroller board strapped to the upper arm, a motion sensor at the wrist, reference electrodes on bone, and the fingers pinching a load-cell puck."
+          n="I"
+          title="the research prototype, as it is being built"
+          note="pencil study · october 2026"
+        />
+      </div>
+
       {/* ---------------- I ---------------- */}
       <section className="at-wrap at-sec">
         <div className="at-sec-head rise">
@@ -1082,6 +1110,13 @@ export default function Atlas() {
             </p>
           </div>
         </div>
+        <Plate
+          src="/touchstone/study-puck.webp"
+          alt="Pencil study of the instrumented pinch puck, assembled and exploded: a bar load cell with a jaw block and grip pad at each end, screws and washers, and a calibration weight hanging from an eye-screw."
+          n="II"
+          title="the force reference — a pinch puck around a load cell"
+          note="what the sleeve is checked against, in newtons"
+        />
       </section>
 
       {/* ---------------- II — the morph ---------------- */}
@@ -1224,6 +1259,16 @@ export default function Atlas() {
         )}
       </section>
 
+      <div className="at-wrap">
+        <Plate
+          src="/touchstone/study-sleeve.webp"
+          alt="Pencil study of the finished sleeve: a slim ribbed knit sleeve from elbow to wrist with flush sensing contacts, soft pads woven in and one small sealed pod on the back of the forearm. No wires."
+          n="III"
+          title="where it is going — the sleeve as a product"
+          note="design study · not finished hardware"
+        />
+      </div>
+
       {/* ---------------- IV — the record ---------------- */}
       <section className="at-wrap at-sec">
         <div className="at-sec-head rise">
@@ -1292,6 +1337,14 @@ export default function Atlas() {
             </li>
           ))}
         </ol>
+
+        <Plate
+          src="/touchstone/study-harness.webp"
+          alt="Pencil study of a bench electronics harness: a microcontroller board at the centre, amplifier boards with electrode leads, motion and pressure sensor boards, two load cells with amplifiers, and two hand-soldered perfboards."
+          n="IV"
+          title="the bench harness"
+          note="illustration · not a wiring drawing"
+        />
 
         <p className="at-pull rise">
           The measurement is the product. The chain that makes it believable is
