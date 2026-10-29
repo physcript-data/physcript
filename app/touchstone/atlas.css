@@ -1281,6 +1281,48 @@
   color: var(--ink);
 }
 
+/* ---------- plates · pencil studies ---------- */
+.at-plate {
+  margin: 56px 0 0;
+  border: 1px solid var(--hairline);
+  background: var(--sheet);
+}
+
+.at-plate img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: grayscale(1) contrast(1.05);
+  mix-blend-mode: multiply;
+}
+
+.at-plate figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 11px 14px;
+  border-top: 1px solid var(--hairline);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faded);
+}
+
+.at-plate figcaption b {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.at-plate-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.at-plate-pair .at-plate {
+  margin-top: 56px;
+}
+
 /* ---------- V · status ---------- */
 
 .at-status-sec {
@@ -1462,6 +1504,14 @@
 /* ---------- narrow ---------- */
 
 @media (max-width: 980px) {
+  .at-plate-pair {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .at-plate figcaption {
+    flex-direction: column;
+    gap: 4px;
+  }
   .at-wrap {
     padding: 0 24px;
   }
