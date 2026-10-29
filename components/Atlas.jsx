@@ -94,7 +94,7 @@ function Frame({ crushed, label, peak, trace, delay }) {
           x2="290"
           y2={N2Y(36)}
         />
-        <text className="at-axis-lab" x="290" y={N2Y(36) - 5} textAnchor="end">
+        <text className="at-axis-lab" x="14" y={N2Y(36) - 5} textAnchor="start">
           cup fails · 36 N
         </text>
         <path ref={measure} className="at-trace-line" d={trace} />
@@ -910,10 +910,6 @@ const STATUS = [
   ["Uncertainty validation", "run on public data, externally reviewed, six of our own claims corrected", "R", "done"],
   ["v0 hardware", "bench prototype under construction · signals read on the bench · not yet worn", "—", "part"],
   ["First worn recording", "next — muscle signals and force together, against the load-cell reference", "—", "open"],
-  ["Gate K1", "untouched — no robot, no policy, no task anywhere in the programme yet", "H", "open"],
-  ["Gate K3", "untouched — highest risk and, since 2026-08-20, highest value", "H", "open"],
-  ["Customer interviews", "3 of a target 15", "D", "part"],
-  ["Record schema, published", "not yet — cheap credibility, no dependencies", "—", "open"],
 ];
 
 /* ============================================================

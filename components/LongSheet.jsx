@@ -125,10 +125,6 @@ const STATE = [
   ["Uncertainty validation", "seven arms run on public data, externally reviewed, six of our own claims corrected", "R"],
   ["v0 hardware", "bench prototype under construction. Parts in hand since 27 September; the logger records to SD at 2 kHz with no gaps; the surface-EMG front end, an inertial unit and the force reference all read on the bench. Not yet calibrated, not yet worn for a recorded session", "—"],
   ["First worn recording", "next — muscle signals and force recorded together against the load-cell reference. The first point at which the sleeve measures anything a customer would care about", "—"],
-  ["Gate K1", "untouched — there is no robot, no policy and no task anywhere in the programme yet", "H"],
-  ["Gate K3", "untouched", "H"],
-  ["Customer interviews", "3 of a target 15 — the cheapest high-value work available, and the most consistently avoided", "D"],
-  ["The Record schema, published", "not started", "—"],
 ];
 
 export default function LongSheet() {
