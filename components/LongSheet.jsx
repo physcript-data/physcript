@@ -123,7 +123,8 @@ const GATES = [
 const STATE = [
   ["System specification", "complete — five blocks, seven layers, five gates, costed at three volumes", "R"],
   ["Uncertainty validation", "seven arms run on public data, externally reviewed, six of our own claims corrected", "R"],
-  ["v0 hardware", "nothing built. Parts not ordered. This is the binding constraint on everything below", "—"],
+  ["v0 hardware", "bench prototype under construction. Parts in hand since 27 September; the logger records to SD at 2 kHz with no gaps; the surface-EMG front end, an inertial unit and the force reference all read on the bench. Not yet calibrated, not yet worn for a recorded session", "—"],
+  ["First worn recording", "next — muscle signals and force recorded together against the load-cell reference. The first point at which the sleeve measures anything a customer would care about", "—"],
   ["Gate K1", "untouched — there is no robot, no policy and no task anywhere in the programme yet", "H"],
   ["Gate K3", "untouched", "H"],
   ["Customer interviews", "3 of a target 15 — the cheapest high-value work available, and the most consistently avoided", "D"],
@@ -156,8 +157,8 @@ export default function LongSheet() {
       <header className="ls-wrap ls-mast">
         <div className="rise">
           <p className="ls-eyebrow">
-            TOUCHSTONE v3 · SHEET 02 · REV 0.2 · SPECIFIED, PARTLY VALIDATED,
-            UNBUILT
+            TOUCHSTONE v3 · SHEET 02 · REV 0.3 · SPECIFIED, PARTLY VALIDATED,
+            BENCH PROTOTYPE UNDER CONSTRUCTION
           </p>
           <h1 className="ls-mast-title">Touchstone</h1>
           <p className="ls-mast-sub">
@@ -823,7 +824,7 @@ export default function LongSheet() {
             <p className="ls-note">
               There is a clock on this, too. The labs that proved the physics
               still exist, all now see the same newly-paying market, and several
-              have working prototypes we do not. &ldquo;Nobody built the
+              are further along than we are. &ldquo;Nobody built the
               product&rdquo; can mean there were structural reasons — and there
               were — or it can mean somebody has not got round to it yet. No
               framing changes which one it turns out to be.
@@ -871,11 +872,11 @@ export default function LongSheet() {
           </div>
           <div>
             <dt>Revision</dt>
-            <dd>0.2 · v3 architecture</dd>
+            <dd>0.3 · v3 architecture · bench build</dd>
           </div>
           <div>
             <dt>Status</dt>
-            <dd>specified · partly validated · unbuilt</dd>
+            <dd>specified · partly validated · bench prototype under construction</dd>
           </div>
           <div>
             <dt>Enquiries</dt>

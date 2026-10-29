@@ -288,8 +288,8 @@ function Morph({ t }) {
         </ol>
         <p className={"at-morph-note " + b.s}>{b.r}</p>
         <p className="at-illus">
-          Illustrative. No hardware exists yet — these are the shapes of the
-          answers, not measured ones.
+          Illustrative. The bench prototype does not produce these yet — these
+          are the shapes of the answers, not measured ones.
         </p>
       </div>
     </div>
@@ -908,7 +908,8 @@ function Strip() {
 const STATUS = [
   ["System specification", "complete — 5 blocks, 7 layers, 5 gates, costed", "R", "done"],
   ["Uncertainty validation", "run on public data, externally reviewed, six of our own claims corrected", "R", "done"],
-  ["v0 hardware", "nothing built · parts not ordered", "—", "open"],
+  ["v0 hardware", "bench prototype under construction · logging, EMG, inertial and force channels read on the bench · not yet calibrated or worn", "—", "part"],
+  ["First worn recording", "next — muscle signals and force together, against the load-cell reference", "—", "open"],
   ["Gate K1", "untouched — no robot, no policy, no task anywhere in the programme yet", "H", "open"],
   ["Gate K3", "untouched — highest risk and, since 2026-08-20, highest value", "H", "open"],
   ["Customer interviews", "3 of a target 15", "D", "part"],
@@ -1275,8 +1276,9 @@ export default function Atlas() {
           <div>
             <h2 className="at-h2">Where this actually stands.</h2>
             <p className="at-body">
-              Everything above is a specification and one validated corner of
-              it. Said plainly, because a company whose entire pitch is
+              Everything above is a specification, one validated corner of it,
+              and a bench prototype that has started to read signals. Said
+              plainly, because a company whose entire pitch is
               <em> calibrated numbers with stated error</em> does not get to be
               vague about its own state.
             </p>
@@ -1315,11 +1317,11 @@ export default function Atlas() {
           </div>
           <div>
             <dt>Revision</dt>
-            <dd>0.2 · v3 architecture</dd>
+            <dd>0.3 · v3 architecture · bench build</dd>
           </div>
           <div>
             <dt>Status</dt>
-            <dd>specified · partly validated · unbuilt</dd>
+            <dd>specified · partly validated · bench prototype under construction</dd>
           </div>
           <div>
             <dt>Enquiries</dt>
