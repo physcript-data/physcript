@@ -94,7 +94,7 @@ function Frame({ crushed, label, peak, trace, delay }) {
           x2="290"
           y2={N2Y(36)}
         />
-        <text className="at-axis-lab" x="290" y={N2Y(36) - 5} textAnchor="end">
+        <text className="at-axis-lab" x="14" y={N2Y(36) - 5} textAnchor="start">
           cup fails · 36 N
         </text>
         <path ref={measure} className="at-trace-line" d={trace} />
@@ -288,8 +288,8 @@ function Morph({ t }) {
         </ol>
         <p className={"at-morph-note " + b.s}>{b.r}</p>
         <p className="at-illus">
-          Illustrative. No hardware exists yet — these are the shapes of the
-          answers, not measured ones.
+          Illustrative. The bench prototype does not produce these yet — these
+          are the shapes of the answers, not measured ones.
         </p>
       </div>
     </div>
@@ -623,10 +623,10 @@ function Map({ stage, sel, setSel, focus, setFocus, gate, setGate, pinned, setPi
       <g className="at-gate-band" data-on={stage >= 6 ? "1" : "0"}>
         <line x1="420" y1="646" x2="1290" y2="646" />
         <text className="at-zone-lab" x="420" y="636">
-          VII · what would kill what
+          VII · the five gates
         </text>
         <text className="at-gate-band-s" x="1290" y="636" textAnchor="end">
-          five pre-registered experiments · each with a written failure response
+          five pre-registered experiments · pass line and plan written in advance
         </text>
       </g>
 
@@ -902,17 +902,32 @@ function Strip() {
 }
 
 /* ============================================================
+   plates — pencil studies
+   ============================================================ */
+
+function Plate({ src, alt, n, title, note, w = 1280, h = 720 }) {
+  return (
+    <figure className="at-plate rise">
+      <img src={src} alt={alt} width={w} height={h} loading="lazy" />
+      <figcaption>
+        <span>
+          <b>plate {n}</b> · {title}
+        </span>
+        <span>{note}</span>
+      </figcaption>
+    </figure>
+  );
+}
+
+/* ============================================================
    V — where this actually stands
    ============================================================ */
 
 const STATUS = [
   ["System specification", "complete — 5 blocks, 7 layers, 5 gates, costed", "R", "done"],
   ["Uncertainty validation", "run on public data, externally reviewed, six of our own claims corrected", "R", "done"],
-  ["v0 hardware", "nothing built · parts not ordered", "—", "open"],
-  ["Gate K1", "untouched — no robot, no policy, no task anywhere in the programme yet", "H", "open"],
-  ["Gate K3", "untouched — highest risk and, since 2026-08-20, highest value", "H", "open"],
-  ["Customer interviews", "3 of a target 15", "D", "part"],
-  ["Record schema, published", "not yet — cheap credibility, no dependencies", "—", "open"],
+  ["v0 hardware", "bench prototype under construction · signals read on the bench · not yet worn", "—", "part"],
+  ["First worn recording", "next — muscle signals and force together, against the load-cell reference", "—", "open"],
 ];
 
 /* ============================================================
@@ -1028,6 +1043,15 @@ export default function Atlas() {
           <div className="at-sec-num">I</div>
           <div>
             <h2 className="at-h2">Two gaps, and they share one answer.</h2>
+            <Plate
+            src="/touchstone/study-prototype.webp"
+            w={1268}
+            h={720}
+            alt="Pencil study of the research prototype on a forearm: a band of small printed pods holding gel electrodes, a wire bundle running to a microcontroller board strapped to the upper arm, a motion sensor at the wrist, reference electrodes on bone, and the fingers pinching a load-cell puck."
+            n="I"
+            title="the research prototype, as it is being built"
+            note="pencil study · october 2026"
+            />
             <p className="at-body">
               The first is that force is invisible. The second is that even if
               you could see it, a human hand and a robot gripper have so little
@@ -1052,6 +1076,13 @@ export default function Atlas() {
             delay="0.12s"
           />
         </div>
+        <Plate
+        src="/touchstone/study-puck.webp"
+        alt="Pencil study of the instrumented pinch puck, assembled and exploded: a bar load cell with a jaw block and grip pad at each end, screws and washers, and a calibration weight hanging from an eye-screw."
+        n="II"
+        title="the force reference — a pinch puck around a load cell"
+        note="what the sleeve is checked against, in newtons"
+        />
         <p className="at-frames-foot rise">
           Identical pixels. Seventeen times the force. Only one of these is a
           demonstration worth learning from, and nothing in the image says
@@ -1135,7 +1166,7 @@ export default function Atlas() {
         </div>
         <p className="at-hint">
           hover anything to isolate its lineage · click to read it · hover a gate
-          to see what dies if it fails
+          to see what depends on it
         </p>
       </section>
 
@@ -1144,7 +1175,7 @@ export default function Atlas() {
         {g ? (
           <div className="at-read">
             <div className="at-read-head">
-              <span className="at-read-kind">kill gate</span>
+              <span className="at-read-kind">gate</span>
               <h3 className="at-read-n">
                 {g.id} — {g.n}
               </h3>
@@ -1166,7 +1197,7 @@ export default function Atlas() {
                   <dd>{g.fail}</dd>
                 </div>
                 <div>
-                  <dt>Kills</dt>
+                  <dt>Depends on it</dt>
                   <i className="at-lead" aria-hidden="true" />
                   <dd>
                     {[...g.kills, ...g.marks]
@@ -1233,6 +1264,15 @@ export default function Atlas() {
           <div className="at-sec-num">III</div>
           <div>
             <h2 className="at-h2">What actually gets written down.</h2>
+            <Plate
+            src="/touchstone/study-sleeve.webp"
+            w={1233}
+            h={711}
+            alt="Pencil study of the finished sleeve: a slim ribbed knit sleeve from elbow to wrist with flush sensing contacts, soft pads woven in and one small sealed pod on the back of the forearm. No wires."
+            n="III"
+            title="where it is going — the sleeve as a product"
+            note="design study · not finished hardware"
+            />
             <p className="at-body">
               Five channels, one timebase. Four of them exist somewhere else in
               some form. The fifth — a stated interval around every force and
@@ -1275,8 +1315,9 @@ export default function Atlas() {
           <div>
             <h2 className="at-h2">Where this actually stands.</h2>
             <p className="at-body">
-              Everything above is a specification and one validated corner of
-              it. Said plainly, because a company whose entire pitch is
+              Everything above is a specification, one validated corner of it,
+              and a bench prototype that has started to read signals. Said
+              plainly, because a company whose entire pitch is
               <em> calibrated numbers with stated error</em> does not get to be
               vague about its own state.
             </p>
@@ -1315,11 +1356,11 @@ export default function Atlas() {
           </div>
           <div>
             <dt>Revision</dt>
-            <dd>0.2 · v3 architecture</dd>
+            <dd>0.3 · v3 architecture · bench build</dd>
           </div>
           <div>
             <dt>Status</dt>
-            <dd>specified · partly validated · unbuilt</dd>
+            <dd>specified · partly validated · bench prototype under construction</dd>
           </div>
           <div>
             <dt>Enquiries</dt>
