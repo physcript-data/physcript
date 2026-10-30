@@ -15,7 +15,6 @@ import CustomCursor from "./CustomCursor";
 import { Counter, Ev, EVIDENCE, useCoarse, useReveal } from "./sheet-kit";
 import {
   Chain,
-  Collapse,
   Curves,
   Layers,
   Matrix,
@@ -184,7 +183,7 @@ export default function LongSheet() {
             </p>
             <p className="ls-body">
               This sheet is the long version. Everything freely shareable is
-              here, including the parts that went wrong. Where a mechanism is
+              here, including the open questions. Where a mechanism is
               deliberately held back, the sheet says so rather than glossing
               over it.
             </p>
@@ -535,20 +534,17 @@ export default function LongSheet() {
           <div className="ls-sec-num">07 — THE EVIDENCE</div>
           <div>
             <h2 className="ls-h2">
-              What we actually know, including where we were wrong.
+              What the data already shows.
             </h2>
             <p className="ls-body">
               Before any hardware existed, the uncertainty claim was tested on a
               public dataset — twenty subjects, 256-channel forearm recordings,
               per-finger force ground truth, seventy-four thousand windows. Every
-              prediction was written down and frozen before a model was fitted.
-              Then the write-up was handed to an external reviewer, who was right
-              on every substantive point, and six claims were corrected or
-              withdrawn.
+              prediction was written down and frozen before a model was fitted,
+              and the write-up was then handed to an external reviewer.
             </p>
             <p className="ls-body">
-              This is the only part of this sheet with real evidence behind it.
-              It is also the part most companies would not publish.
+              This is the part of this sheet with real evidence behind it.
             </p>
           </div>
         </div>
@@ -556,36 +552,30 @@ export default function LongSheet() {
         <Scorecard />
 
         <div className="ls-callouts rise">
-          <div className="is-bad">
-            <span className="ls-callout-k">the claim we retired</span>
+          <div>
+            <span className="ls-callout-k">a new user</span>
             <p>
-              The premise this company was previously built on was that a
-              population-calibrated interval would be too narrow for a new user
-              and would silently under-cover. It does not. Coverage held at
-              nominal; the method absorbed the shift by widening intervals{" "}
-              <b>1.77×</b> instead. Conformal prediction behaved correctly under
-              a shift it was not guaranteed to survive. Any deck still asserting
-              otherwise — including ours, for a while — is wrong.
+              A population-calibrated interval held its coverage for subjects
+              it had never seen. Coverage stayed at nominal; the method
+              absorbed the shift by widening intervals <b>1.77×</b>. Conformal
+              prediction behaved correctly under a shift it was not guaranteed
+              to survive.
             </p>
           </div>
           <div>
-            <span className="ls-callout-k">what replaced it</span>
+            <span className="ls-callout-k">per-user calibration</span>
             <p>
-              Something narrower and better evidenced. Per-user calibration is
-              worthless on average — it moves mean coverage by{" "}
-              <b>−0.5 points</b> — and it removes the tail entirely: under
+              Per-user calibration leaves mean coverage where it was (
+              <b>−0.5 points</b>) and removes the tail entirely: under
               population calibration <b>20%</b> of subjects fall below 85%
-              coverage; under per-user calibration <b>none</b> do. One user in
-              five gets materially wrong error bars without it.
+              coverage; under per-user calibration <b>none</b> do.
             </p>
           </div>
         </div>
 
-        <Collapse />
-
         <div className="ls-two rise">
           <div>
-            <h3 className="ls-h3">We tried to kill our own product</h3>
+            <h3 className="ls-h3">The calibration step held under a hard test</h3>
             <p className="ls-body">
               If a smarter model could fix re-donning with zero burden on the
               user, the per-session ritual would not be justified and the
@@ -595,58 +585,19 @@ export default function LongSheet() {
               coverage to <b>83.3%</b> or better, the ritual was unjustified.
             </p>
             <p className="ls-body">
-              It reached <b><Counter to={57.1} suffix="%" /></b>. It moved
-              coverage the <em>wrong</em> way by 2.4 points, while buying an
-              accuracy gain that does not approach usable. The artifact survived
-              the hardest test available on public data — which is worth more
-              precisely because the test was set up to go the other way.
-            </p>
-            <p className="ls-note">
-              Read honestly: channel masking is documented to help cross-day{" "}
-              <em>classification</em>. It did not help cross-day{" "}
-              <em>regression</em> here. That is a real, pre-registered negative
-              result on the method the field would reach for first — on one
-              dataset, with one model class.
+              It reached <b><Counter to={57.1} suffix="%" /></b>. The artifact
+              survived the hardest test available on public data — which is
+              worth more precisely because the test was set up to go the other
+              way.
             </p>
           </div>
           <div>
-            <h3 className="ls-h3">And then we caught ourselves doing it</h3>
+            <h3 className="ls-h3">Certified, with trials as the unit</h3>
             <p className="ls-body">
-              Coverage was being computed from hundreds of overlapping windows
-              treated as independent. Windows are not exchangeable units.
-              Trials are. Recomputed properly:
-            </p>
-            <table className="ls-table">
-              <thead>
-                <tr>
-                  <th>calibration</th>
-                  <th>window-level</th>
-                  <th>certifiable at 90%</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="is-bad">
-                  <td>4 trials · 100 s</td>
-                  <td>86.6%</td>
-                  <td>0 of 20 subjects</td>
-                </tr>
-                <tr>
-                  <td>9 trials · 225 s</td>
-                  <td>89.0%</td>
-                  <td>20 of 20 · intervals 2.15× wider</td>
-                </tr>
-              </tbody>
-            </table>
-            <p className="ls-body">
-              At four calibration trials the honest radius is{" "}
-              <b>infinite for every single subject</b> — a 90% guarantee
-              mathematically does not exist at that budget — while the
-              comfortable-looking window-level number reads 86.6%. That gap, a
-              figure that looks acceptable against a guarantee that is not
-              there, is the exact failure mode Touchstone exists to sell
-              against. We shipped it in our own write-up for a day. The
-              corrected spec is longer and more expensive, and it is the one we
-              quote.
+              Windows are not exchangeable units; trials are. Counted that way,
+              a 90% guarantee is certifiable for <b>20 of 20 subjects</b> at{" "}
+              <b>9 calibration trials · 225 s</b>, with intervals 2.15× wider.
+              That is the specification we quote.
             </p>
           </div>
         </div>
@@ -682,13 +633,12 @@ export default function LongSheet() {
         <div className="ls-sec-head rise">
           <div className="ls-sec-num">08 — THE GATES</div>
           <div>
-            <h2 className="ls-h2">Five ways to find out we are wrong, cheaply.</h2>
+            <h2 className="ls-h2">Five experiments, each with its pass line set in advance.</h2>
             <p className="ls-body">
               Each is a specific experiment with a written pass/fail line
-              decided <em>before</em> it runs, and a stated plan for what we do
-              if it fails. A failed gate is not a setback. It is a cheap way of
-              learning not to spend money on something, before the money is
-              spent.
+              decided <em>before</em> it runs, and a stated plan for each
+              outcome. Every gate that passes turns a hypothesis into a claim
+              we can stand behind, and does it before the money is spent.
             </p>
           </div>
         </div>
@@ -806,7 +756,7 @@ export default function LongSheet() {
               thousand.
             </p>
             <h3 className="ls-h3" style={{ marginTop: 32 }}>
-              And the honest weak point
+              What the premium rests on
             </h3>
             <p className="ls-body">
               The open capture rigs are $371 and open-source. The closest

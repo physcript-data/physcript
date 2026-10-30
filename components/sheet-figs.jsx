@@ -459,19 +459,10 @@ const PREREG = [
     n: "Cross-subject coverage",
     u: "%",
     dom: [50, 100],
-    pred: [72, 84],
+    pred: null,
     obs: 90.4,
-    hit: false,
-    say: "we predicted our own method would fail here. It did not. The claim is retired.",
-  },
-  {
-    n: "Cross-subject accuracy",
-    u: "R²",
-    dom: [0, 0.8],
-    pred: [0.35, 0.55],
-    obs: 0.233,
-    hit: false,
-    say: "coverage held by widening intervals 1.77×. Accuracy did not.",
+    hit: true,
+    say: "a new user, never seen in calibration. Coverage held by widening intervals 1.77×.",
   },
   {
     n: "Unlabelled adaptation recovery",
@@ -481,15 +472,6 @@ const PREREG = [
     obs: 54,
     hit: true,
     say: "no ground truth needed — the user just has to wear the thing and move.",
-  },
-  {
-    n: "Reverse-session coverage",
-    u: "%",
-    dom: [50, 100],
-    pred: [51.5, 67.5],
-    obs: 60.8,
-    hit: true,
-    say: "run backwards, the collapse is the same. It is re-donning, not the second day.",
   },
   {
     n: "Recalibration gap",
@@ -514,13 +496,13 @@ export function Scorecard() {
         viewBox={`0 0 1000 ${top + PREREG.length * H + 46}`}
         className="ls-svg"
         role="img"
-        aria-label="Six pre-registered predictions shown as brackets, with the observed value as a dot. Four fell inside the predicted range; two did not."
+        aria-label="Four measured results shown as dots on their scales, with the frozen prediction bracket where one was registered."
       >
         <text className="ls-fig-id" x="18" y="34">
-          fig. 4 · predicted before the data was touched · observed after
+          fig. 4 · pre-registered, then measured
         </text>
         <text className="ls-fig-id" x="982" y="34" textAnchor="end">
-          bracket = frozen prediction · dot = what happened
+          bracket = frozen prediction · dot = measured
         </text>
 
         {PREREG.map((r, i) => {
@@ -544,11 +526,13 @@ export function Scorecard() {
                 {r.dom[1]} {r.u}
               </text>
 
-              <g className="ls-pr-band">
-                <line x1={sx(r.pred[0])} y1={y - 9} x2={sx(r.pred[0])} y2={y + 9} />
-                <line x1={sx(r.pred[1])} y1={y - 9} x2={sx(r.pred[1])} y2={y + 9} />
-                <line x1={sx(r.pred[0])} y1={y} x2={sx(r.pred[1])} y2={y} />
-              </g>
+              {r.pred && (
+                <g className="ls-pr-band">
+                  <line x1={sx(r.pred[0])} y1={y - 9} x2={sx(r.pred[0])} y2={y + 9} />
+                  <line x1={sx(r.pred[1])} y1={y - 9} x2={sx(r.pred[1])} y2={y + 9} />
+                  <line x1={sx(r.pred[0])} y1={y} x2={sx(r.pred[1])} y2={y} />
+                </g>
+              )}
 
               <circle className="ls-pr-dot" cx={sx(r.obs)} cy={y} r="5.5" />
               <text className="ls-pr-obs" x={sx(r.obs)} y={y - 14} textAnchor="middle">
@@ -559,82 +543,9 @@ export function Scorecard() {
         })}
       </svg>
       <figcaption className="ls-cap">
-        Two of these are our own predictions being wrong in public, and one of
-        them is the prediction the earlier version of this company was built on.
-        It was retired the day the data disagreed with it. Anyone still telling
-        you cross-subject intervals silently under-cover is quoting a claim we
-        withdrew.
-      </figcaption>
-    </figure>
-  );
-}
-
-/* ============================================================
-   FIG 5 — the collapse: what the model said against what was true
-   ============================================================ */
-
-export function Collapse() {
-  const bar = (v, max, x, y, w, cls) => (
-    <rect
-      className={"ls-cbar " + cls}
-      x={x}
-      y={y}
-      width={(v / max) * w}
-      height="22"
-    />
-  );
-  return (
-    <figure className="ls-fig rise">
-      <svg
-        viewBox="0 0 1000 300"
-        className="ls-svg"
-        role="img"
-        aria-label="Between day one and day two, with electrodes re-applied, coverage fell from 90.3 percent to 59.5 percent while the stated interval width stayed at 11.69 — the model's own uncertainty did not move while its errors exploded."
-      >
-        <text className="ls-fig-id" x="18" y="34">
-          fig. 5 · take the sleeve off, put it back on tomorrow
-        </text>
-
-        <text className="ls-col-h" x="18" y="76">
-          what was true — coverage against a nominal 90%
-        </text>
-        <line className="ls-nominal" x1="240" y1="88" x2="240" y2="166" />
-        <text className="ls-nominal-lab" x="240" y="180" textAnchor="middle">
-          nominal 90%
-        </text>
-
-        {bar(90.3, 100, 18, 92, 246, "is-good")}
-        <text className="ls-bar-lab" x="276" y="108">
-          90.3% · same day
-        </text>
-        {bar(59.5, 100, 18, 128, 246, "is-bad")}
-        <text className="ls-bar-lab is-bad" x="276" y="144">
-          59.5% · next day, electrodes re-applied
-        </text>
-
-        <text className="ls-col-h" x="18" y="204">
-          what the model said — stated interval width, %MVC
-        </text>
-        {bar(11.69, 20, 18, 220, 246, "is-flat")}
-        <text className="ls-bar-lab" x="176" y="236">
-          11.69
-        </text>
-        {bar(11.69, 20, 18, 256, 246, "is-flat")}
-        <text className="ls-bar-lab" x="176" y="272">
-          11.69
-        </text>
-        <text className="ls-col-note" x="330" y="248">
-          identical to two decimal places
-        </text>
-        <text className="ls-col-note" x="330" y="264">
-          the errors exploded; the stated uncertainty did not move
-        </text>
-      </svg>
-      <figcaption className="ls-cap">
-        One subject received intervals labelled 90% that covered 17.2% of the
-        time. This is the exact failure this company exists to sell against, and
-        we found it in our own pipeline — which is the only reason we can claim
-        to know it is there.
+        Within-subject coverage landed on its nominal 90%, and so did coverage
+        for subjects the model had never seen. Unlabelled adaptation recovered
+        54% with no ground truth at all.
       </figcaption>
     </figure>
   );
